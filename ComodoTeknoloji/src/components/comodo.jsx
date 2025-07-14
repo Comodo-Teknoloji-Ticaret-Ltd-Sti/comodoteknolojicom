@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, Code, Globe, Smartphone, Database, Shield, Users, Award, Mail, Phone, MapPin, Menu, X, Star, CheckCircle, ArrowRight, Zap, Target, TrendingUp, Eye, Clock, Palette, Cpu, Layers, Settings, Play, Quote, Briefcase, Rocket, LineChart, MessageCircle, Send, Bot, Minimize2, Maximize2, ChevronDown } from 'lucide-react';
+import { ChevronRight, Code, Globe, Smartphone, Database, Shield, Users, Award, Mail, Phone, MapPin, Menu, X, Star, CheckCircle, ArrowRight, Zap, Target, TrendingUp, Eye, Clock, Palette, Cpu, Layers, Settings, Play, Quote, Briefcase, Rocket, LineChart, MessageCircle, Send, Bot, Minimize2, Maximize2, ChevronDown, Leaf } from 'lucide-react';
 import { HashRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import ElectricMeterReading from './ElectricMeterReading';
-import HotelReviewsAnalysis from './HotelReviewsAnalysis';
+import ElectricMeter from './ElectricMeterReading';
+import HotelReviews from './OtelComments';
+import CarbonCalculate from './CarbonCalculate';
 import WebSites from './WebSites';
 
 const ComodoWebsite = () => {
@@ -295,7 +296,7 @@ const ComodoWebsite = () => {
             icon: <Zap className="w-5 h-5" />,
             category: 'IoT Çözümleri',
             price: 'Özel Fiyat',
-            path: '/projects/electric-meter-reading'
+            path: '/projects/meter'
         },
         {
             name: 'Otel Yorumları Analizi',
@@ -303,43 +304,44 @@ const ComodoWebsite = () => {
             icon: <Eye className="w-5 h-5" />,
             category: 'AI Çözümleri',
             price: 'Özel Fiyat',
-            path: '/projects/hotel-reviews-analysis'
+            path: '/projects/hotel-reviews'
         },
         {
-            name: 'Comodo Web Builder',
-            description: 'Hızlı web sitesi oluşturma platformu',
-            icon: <Globe className="w-5 h-5" />,
-            category: 'Web Teknolojileri',
-            price: 'Ücretsiz Deneme'
+            name: 'Karbon/Enerji Hesaplama',
+            description: 'Otel ve işletmeler için enerji tüketimi ve karbon ayak izi hesaplama aracı',
+            icon: <Leaf className="w-5 h-5" />,
+            category: 'Sürdürülebilirlik',
+            price: 'Özel Fiyat',
+            path: '/projects/carbon'
         },
-        {
-            name: 'Comodo Mobile SDK',
-            description: 'Mobil uygulama geliştirme kiti',
-            icon: <Smartphone className="w-5 h-5" />,
-            category: 'Mobil Çözümler',
-            price: 'Aylık 299₺'
-        },
-        {
-            name: 'Comodo Analytics',
-            description: 'İş zekası ve veri analizi platformu',
-            icon: <LineChart className="w-5 h-5" />,
-            category: 'Veri Analitiği',
-            price: 'Aylık 199₺'
-        },
-        {
-            name: 'Comodo Security Suite',
-            description: 'Kapsamlı siber güvenlik çözümleri',
-            icon: <Shield className="w-5 h-5" />,
-            category: 'Güvenlik',
-            price: 'Aylık 499₺'
-        },
-        {
-            name: 'Comodo CRM',
-            description: 'Müşteri ilişkileri yönetim sistemi',
-            icon: <Users className="w-5 h-5" />,
-            category: 'İş Uygulamaları',
-            price: 'Aylık 149₺'
-        }
+        // {
+        //     name: 'Comodo Mobile SDK',
+        //     description: 'Mobil uygulama geliştirme kiti',
+        //     icon: <Smartphone className="w-5 h-5" />,
+        //     category: 'Mobil Çözümler',
+        //     price: 'Aylık 299₺'
+        // },
+        // {
+        //     name: 'Comodo Analytics',
+        //     description: 'İş zekası ve veri analizi platformu',
+        //     icon: <LineChart className="w-5 h-5" />,
+        //     category: 'Veri Analitiği',
+        //     price: 'Aylık 199₺'
+        // },
+        // {
+        //     name: 'Comodo Security Suite',
+        //     description: 'Kapsamlı siber güvenlik çözümleri',
+        //     icon: <Shield className="w-5 h-5" />,
+        //     category: 'Güvenlik',
+        //     price: 'Aylık 499₺'
+        // },
+        // {
+        //     name: 'Comodo CRM',
+        //     description: 'Müşteri ilişkileri yönetim sistemi',
+        //     icon: <Users className="w-5 h-5" />,
+        //     category: 'İş Uygulamaları',
+        //     price: 'Aylık 149₺'
+        // }
     ];
 
     return (
@@ -383,12 +385,6 @@ const ComodoWebsite = () => {
                             {[{
                                 name: 'Ana Sayfa',
                                 id: 'home'
-                            }, {
-                                name: 'Çözümler',
-                                id: 'services'
-                            }, {
-                                name: 'Başarı Hikayeleri',
-                                id: 'success'
                             }, {
                                 name: 'İletişim',
                                 id: 'contact'
@@ -515,12 +511,6 @@ const ComodoWebsite = () => {
                                 {[{
                                     name: 'Ana Sayfa',
                                     id: 'home'
-                                }, {
-                                    name: 'Çözümler',
-                                    id: 'services'
-                                }, {
-                                    name: 'Başarı Hikayeleri',
-                                    id: 'success'
                                 }, {
                                     name: 'İletişim',
                                     id: 'contact'
@@ -1253,10 +1243,10 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<ComodoWebsite />} />
-                <Route path="/projects/electric-meter-reading" element={<ElectricMeterReading />} />
-                <Route path="/projects/hotel-reviews-analysis" element={<HotelReviewsAnalysis />} />
+                <Route path="/projects/meter" element={< ElectricMeter/>} />
+                <Route path="/projects/hotel-reviews" element={< HotelReviews/>} />
                 <Route path="/projects/web-sites" element={<WebSites />} />
-                {/* <Route path="/projects/ecommerce-platform" element={<div className="min-h-screen pt-20 flex items-center justify-center"><h1 className="text-4xl">E-Ticaret Platformu - Yakında</h1></div>} /> */}
+                <Route path="/projects/carbon" element={<CarbonCalculate />} />
                 {/* <Route path="/projects/mobile-banking" element={<div className="min-h-screen pt-20 flex items-center justify-center"><h1 className="text-4xl">Mobil Bankacılık - Yakında</h1></div>} /> */}
             </Routes>
         </Router>
