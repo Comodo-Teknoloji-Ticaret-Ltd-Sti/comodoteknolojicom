@@ -76,7 +76,7 @@ const WebSites = () => {
             setIsMenuOpen(false);
         }
     };
-    
+
     const [selectedCategory, setSelectedCategory] = useState('all');
     const categories = [
         { id: 'all', name: 'Tümü', count: 7 },
@@ -188,8 +188,8 @@ const WebSites = () => {
         }
     ];
 
-    const filteredWebsites = selectedCategory === 'all' 
-        ? websites 
+    const filteredWebsites = selectedCategory === 'all'
+        ? websites
         : websites.filter(website => website.category === selectedCategory);
 
     const openWhatsApp = () => {
@@ -213,7 +213,7 @@ const WebSites = () => {
                 </div>
             </div>
             {/* Header/Navbar */}
-            <header className={`fixed w-full z-50 transition-all duration-500 ${scrollY > 50 ? 'bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-lg' : 'bg-transparent border-none shadow-none'}`}> 
+            <header className={`fixed w-full z-50 transition-all duration-500 ${scrollY > 50 ? 'bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-lg' : 'bg-transparent border-none shadow-none'}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         <div className="flex items-center space-x-3">
@@ -231,15 +231,62 @@ const WebSites = () => {
                             </div>
                         </div>
                         {/* Desktop Navigation */}
-                                    <nav className="hidden md:flex space-x-1">
-                                        {/* Sadece Ana Sayfa butonu */}
-                                        <button
-                                            onClick={() => navigate('/')}
-                                            className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${scrollY <= 50 ? 'text-white' : 'text-blue-600'}`}
-                                            style={{ background: 'transparent', boxShadow: 'none', border: 'none' }}
-                                        >
-                                            Ana Sayfa
-                                        </button>
+                        <nav className="hidden md:flex space-x-1">
+                            {/* Sadece Ana Sayfa butonu */}
+                            <button
+                                onClick={() => navigate('/')}
+                                className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${scrollY <= 50 ? 'text-white' : 'text-blue-600'}`}
+                                style={{ background: 'transparent', boxShadow: 'none', border: 'none' }}
+                            >
+                                Ana Sayfa
+                            </button>
+
+                            {/* Products Dropdown */}
+                            <div className="relative dropdown-container">
+                                <button
+                                    onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
+                                    className={`flex items-center px-6 py-3 rounded-xl font-medium transition-all duration-300 ${scrollY <= 50 ? 'text-white' : 'text-gray-600'} hover:text-gray-900 hover:bg-gray-100`}
+                                >
+                                    Ürünlerimiz
+                                    <ChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${isProductsDropdownOpen ? 'rotate-180' : ''} ${scrollY <= 50 ? 'text-white' : 'text-gray-600'}`} />
+                                </button>
+                                {isProductsDropdownOpen && (
+                                    <div className="absolute top-full right-0 mt-2 w-80 max-w-[90vw] bg-white/95 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-2xl z-50" style={{ transform: 'translateX(0)' }}>
+                                        <div className="p-2 overflow-hidden">
+                                            {products.map((product, index) => {
+                                                const ProductComponent = product.path ? Link : 'div';
+                                                const productProps = product.path ? { to: product.path } : {};
+                                                return (
+                                                    <ProductComponent
+                                                        key={index}
+                                                        {...productProps}
+                                                        className="block px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 group cursor-pointer"
+                                                        onClick={() => setIsProductsDropdownOpen(false)}
+                                                    >
+                                                        <div className="flex items-center justify-between">
+                                                            <div className="flex items-center space-x-3 min-w-0">
+                                                                <div className="flex-shrink-0 text-blue-600 bg-blue-50 p-2 rounded-lg">
+                                                                    {product.icon}
+                                                                </div>
+                                                                <div className="min-w-0 flex-1">
+                                                                    <div className="font-medium truncate">{product.name}</div>
+                                                                    <div className="text-sm text-gray-500 line-clamp-2">{product.description}</div>
+                                                                    <div className="text-xs text-blue-600 font-medium mt-1 truncate">
+                                                                        {product.category} • {product.price}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex-shrink-0 ml-2">
+                                                                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                                            </div>
+                                                        </div>
+                                                    </ProductComponent>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                             {/* Projects Dropdown */}
                             <div className="relative dropdown-container">
                                 <button
@@ -276,50 +323,6 @@ const WebSites = () => {
                                                     <div className="text-sm">bölümünde yer alıyor</div>
                                                 </div>
                                             )}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                            {/* Products Dropdown */}
-                            <div className="relative dropdown-container">
-                                <button
-                                    onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
-                                    className={`flex items-center px-6 py-3 rounded-xl font-medium transition-all duration-300 ${scrollY <= 50 ? 'text-white' : 'text-gray-600'} hover:text-gray-900 hover:bg-gray-100`}
-                                >
-                                    Ürünlerimiz
-                                    <ChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${isProductsDropdownOpen ? 'rotate-180' : ''} ${scrollY <= 50 ? 'text-white' : 'text-gray-600'}`} />
-                                </button>
-                                {isProductsDropdownOpen && (
-                                    <div className="absolute top-full left-0 mt-2 w-96 bg-white/95 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-2xl z-50">
-                                        <div className="p-2">
-                                            {products.map((product, index) => {
-                                                const ProductComponent = product.path ? Link : 'div';
-                                                const productProps = product.path ? { to: product.path } : {};
-                                                return (
-                                                    <ProductComponent
-                                                        key={index}
-                                                        {...productProps}
-                                                        className="block px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 group cursor-pointer"
-                                                        onClick={() => setIsProductsDropdownOpen(false)}
-                                                    >
-                                                        <div className="flex items-center justify-between">
-                                                            <div className="flex items-center space-x-3">
-                                                                <div className="text-blue-600 bg-blue-50 p-2 rounded-lg">
-                                                                    {product.icon}
-                                                                </div>
-                                                                <div>
-                                                                    <div className="font-medium">{product.name}</div>
-                                                                    <div className="text-sm text-gray-500">{product.description}</div>
-                                                                    <div className="text-xs text-blue-600 font-medium mt-1">
-                                                                        {product.category} • {product.price}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                                        </div>
-                                                    </ProductComponent>
-                                                );
-                                            })}
                                         </div>
                                     </div>
                                 )}
@@ -448,11 +451,10 @@ const WebSites = () => {
                             <button
                                 key={category.id}
                                 onClick={() => setSelectedCategory(category.id)}
-                                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                                    selectedCategory === category.id
-                                        ? 'bg-blue-600 text-white shadow-lg'
-                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                }`}
+                                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === category.id
+                                    ? 'bg-blue-600 text-white shadow-lg'
+                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                    }`}
                             >
                                 {category.name}
                                 <span className="ml-2 text-sm opacity-75">({category.count})</span>
@@ -467,12 +469,12 @@ const WebSites = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredWebsites.map((website) => (
-                            <div 
-                                key={website.id} 
+                            <div
+                                key={website.id}
                                 className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer"
                                 onClick={() => window.open(website.liveUrl, '_blank')}
                             >
-                                
+
                                 {/* Image */}
                                 <div className="relative aspect-video overflow-hidden">
                                     <img
@@ -481,7 +483,7 @@ const WebSites = () => {
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                    
+
                                     {/* Overlay Actions */}
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         <button

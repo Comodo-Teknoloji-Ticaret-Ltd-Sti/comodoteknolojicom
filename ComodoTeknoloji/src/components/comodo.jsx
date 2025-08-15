@@ -304,7 +304,15 @@ const ComodoWebsite = () => {
             icon: <Eye className="w-5 h-5" />,
             category: 'AI Çözümleri',
             price: 'Özel Fiyat',
-            path: '/projects/hotel-reviews'
+            path: 'https://hotalyze.com/'
+        },
+        {
+            name: 'Müşteri Anket Sistemi ve Analizi',
+            description: 'Detaylı BI Raporlamalı Müşteri Anket Sistemi',
+            icon: <Eye className="w-5 h-5" />,
+            category: 'Müşteri İyileştirme Çözümleri',
+            price: 'Özel Fiyat',
+            path: 'https://comodo-teknoloji-ticaret-ltd-sti.github.io/Anket/'
         },
         {
             name: 'Karbon/Enerji Hesaplama',
@@ -400,7 +408,52 @@ const ComodoWebsite = () => {
                                     {item.name}
                                 </button>
                             ))}
+                            {/* Products Dropdown */}
+                            <div className="relative dropdown-container">
+                                <button
+                                    onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
+                                    className="flex items-center px-6 py-3 rounded-xl font-medium transition-all duration-300 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                                >
+                                    Ürünlerimiz
+                                    <ChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${isProductsDropdownOpen ? 'rotate-180' : ''}`} />
+                                </button>
 
+                                {isProductsDropdownOpen && (
+                                    <div className="absolute top-full left-0 mt-2 w-96 bg-white/95 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-2xl z-50">
+                                        <div className="p-2">
+                                            {products.map((product, index) => {
+                                                const ProductComponent = product.path ? Link : 'div';
+                                                const productProps = product.path ? { to: product.path } : {};
+
+                                                return (
+                                                    <ProductComponent
+                                                        key={index}
+                                                        {...productProps}
+                                                        className="block px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 group cursor-pointer"
+                                                        onClick={() => setIsProductsDropdownOpen(false)}
+                                                    >
+                                                        <div className="flex items-center justify-between">
+                                                            <div className="flex items-center space-x-3">
+                                                                <div className="text-blue-600 bg-blue-50 p-2 rounded-lg">
+                                                                    {product.icon}
+                                                                </div>
+                                                                <div>
+                                                                    <div className="font-medium">{product.name}</div>
+                                                                    <div className="text-sm text-gray-500">{product.description}</div>
+                                                                    <div className="text-xs text-blue-600 font-medium mt-1">
+                                                                        {product.category} • {product.price}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                                        </div>
+                                                    </ProductComponent>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                             {/* Projects Dropdown */}
                             <div className="relative dropdown-container">
                                 <button
@@ -443,52 +496,7 @@ const ComodoWebsite = () => {
                                 )}
                             </div>
 
-                            {/* Products Dropdown */}
-                            <div className="relative dropdown-container">
-                                <button
-                                    onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
-                                    className="flex items-center px-6 py-3 rounded-xl font-medium transition-all duration-300 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                                >
-                                    Ürünlerimiz
-                                    <ChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${isProductsDropdownOpen ? 'rotate-180' : ''}`} />
-                                </button>
 
-                                {isProductsDropdownOpen && (
-                                    <div className="absolute top-full left-0 mt-2 w-96 bg-white/95 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-2xl z-50">
-                                        <div className="p-2">
-                                            {products.map((product, index) => {
-                                                const ProductComponent = product.path ? Link : 'div';
-                                                const productProps = product.path ? { to: product.path } : {};
-                                                
-                                                return (
-                                                    <ProductComponent
-                                                        key={index}
-                                                        {...productProps}
-                                                        className="block px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 group cursor-pointer"
-                                                        onClick={() => setIsProductsDropdownOpen(false)}
-                                                    >
-                                                        <div className="flex items-center justify-between">
-                                                            <div className="flex items-center space-x-3">
-                                                                <div className="text-blue-600 bg-blue-50 p-2 rounded-lg">
-                                                                    {product.icon}
-                                                                </div>
-                                                                <div>
-                                                                    <div className="font-medium">{product.name}</div>
-                                                                    <div className="text-sm text-gray-500">{product.description}</div>
-                                                                    <div className="text-xs text-blue-600 font-medium mt-1">
-                                                                        {product.category} • {product.price}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                                        </div>
-                                                    </ProductComponent>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
                         </nav>
 
                         {/* Mobile menu button */}
@@ -558,7 +566,7 @@ const ComodoWebsite = () => {
                                     {products.map((product, index) => {
                                         const ProductComponent = product.path ? Link : 'div';
                                         const productProps = product.path ? { to: product.path } : {};
-                                        
+
                                         return (
                                             <ProductComponent
                                                 key={index}
@@ -1243,8 +1251,8 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<ComodoWebsite />} />
-                <Route path="/projects/meter" element={< ElectricMeter/>} />
-                <Route path="/projects/hotel-reviews" element={< HotelReviews/>} />
+                <Route path="/projects/meter" element={< ElectricMeter />} />
+                <Route path="/projects/hotel-reviews" element={< HotelReviews />} />
                 <Route path="/projects/web-sites" element={<WebSites />} />
                 <Route path="/projects/carbon" element={<CarbonCalculate />} />
                 {/* <Route path="/projects/mobile-banking" element={<div className="min-h-screen pt-20 flex items-center justify-center"><h1 className="text-4xl">Mobil Bankacılık - Yakında</h1></div>} /> */}
